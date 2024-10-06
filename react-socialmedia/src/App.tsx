@@ -1,6 +1,5 @@
 import { Route,Routes } from "react-router-dom";
 import "./App.css";
-import HomeUserListPage from "./pages/HomeUserListPage";
 import { UserPostPage } from "./pages/UserPostPage";
 function App() {
   return (

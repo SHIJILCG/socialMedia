@@ -16,6 +16,7 @@ export default function PostHeaderUserProfile({
   const user: UserDetailsType | undefined = Users?.find(
     (user: UserDetailsType) => user.id === currentPostUser
   );
+
   if (!user) {
     return (
       <div className="flex gap-[10px]">
