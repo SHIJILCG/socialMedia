@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect,useState } from "react";
+import { useEffect, useState } from "react";
 import { CommentsDetailsType, PostDetailsType } from "../Type/type";
 import { useMutation } from "react-query";
 import { CurrentUser } from "../api/currentUser";
@@ -11,10 +11,12 @@ export const InputComment = ({ PostDetails }: InputCommentPropsType) => {
   const mutation = useMutation((newPost: CommentsDetailsType) =>
     axios.post(
       `https://gorest.co.in/public/v2/posts/${PostDetails.id}/comments`,
-      newPost,{
-        headers:{
-            'Authorization':'Bearer 6b204f150fab8a67c4999209fc8a26bd41c529119ba85157f6884f2a52870926'
-        }
+      newPost,
+      {
+        headers: {
+          Authorization:
+            "Bearer 6b204f150fab8a67c4999209fc8a26bd41c529119ba85157f6884f2a52870926",
+        },
       }
     )
   );
@@ -23,7 +25,6 @@ export const InputComment = ({ PostDetails }: InputCommentPropsType) => {
     if (!comment) {
       return;
     }
-    console.log(CurrentUser)
     mutation.mutate({
       id: PostDetails.id,
       post_id: CurrentUser.id,
@@ -33,6 +34,13 @@ export const InputComment = ({ PostDetails }: InputCommentPropsType) => {
     });
     setcomment("");
   };
+  console.log({
+    id: PostDetails.id,
+    post_id: CurrentUser.id,
+    name: CurrentUser.name,
+    email: CurrentUser.email,
+    body: comment,
+  });
   useEffect(() => {
     if (mutation.isLoading) {
       console.log("Submitting...");
