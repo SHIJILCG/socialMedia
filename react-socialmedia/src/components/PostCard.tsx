@@ -9,7 +9,7 @@ type PostCardPoropsType = {
   post: PostDetailsType;
 };
 export default function PostCard({ post }: PostCardPoropsType) {
-  const [showComments, setshowComments] = useState(false);
+  const [showComments, setShowComments] = useState(false);
   return (
     <div className="w-[100vw] flex flex-col items-center">
       <div className="flexn flex-col w-[50%]  p-[24px] border-2 shadow-2xl m-[20px] relative">
@@ -20,7 +20,7 @@ export default function PostCard({ post }: PostCardPoropsType) {
               {post.title}
             </div>
             <div className="text-start p-[20px] text-inherit">{post.body}</div>
-            <CommentButton setshowComments={setshowComments} />
+            <CommentButton setShowComments={setShowComments} />
           </div>
           <div className="">
             <img
@@ -32,11 +32,11 @@ export default function PostCard({ post }: PostCardPoropsType) {
         </div>
         {showComments && (
           <div className=" bg-[#dadada] absolute bottom-0 w-[100%] left-0 rounded-t-xl text-start overflow-scroll">
-            <BackButton setshowComments={setshowComments} />
+            <BackButton setShowComments={setShowComments} />
             <div className="w-[100%] h-[100%] p-[10px] flex flex-col items-center gap-[10px]">
               <CommentSection postId={post.id} />
             </div>
-            <InputComment PostDetails={post} />
+            <InputComment postDetails={post} />
           </div>
         )}
       </div>

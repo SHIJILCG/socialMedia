@@ -1,12 +1,13 @@
-import React from "react";
-type BackButtonPorpsTYpe = {
-  setshowComments: (value: boolean) => void;
+type BackButtonPorpsType = {
+  setShowComments: (value: boolean) => void;
 };
-export const BackButton = ({ setshowComments }: BackButtonPorpsTYpe) => {
+export const BackButton = ({
+  setShowComments: setShowComments,
+}: BackButtonPorpsType) => {
   return (
     <button
       className="text-[20px] rotate-180 p-[10px] "
-      onClick={() => setshowComments(false)}
+      onClick={() => setShowComments(false)}
     >
       ➜
     </button>

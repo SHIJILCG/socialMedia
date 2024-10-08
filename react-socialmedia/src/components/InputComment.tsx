@@ -1,59 +1,29 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { CommentsDetailsType, PostDetailsType } from "../Type/type";
-import { useMutation } from "react-query";
+import { useState } from "react";
+import { PostDetailsType } from "../Type/type";
 import { CurrentUser } from "../api/currentUser";
+import { useSetComments } from "../api/comments/useSetComments";
 type InputCommentPropsType = {
-  PostDetails: PostDetailsType;
+  postDetails: PostDetailsType;
 };
-export const InputComment = ({ PostDetails }: InputCommentPropsType) => {
-  const [comment, setcomment] = useState<string>("");
-  const mutation = useMutation((newPost: CommentsDetailsType) =>
-    axios.post(
-      `https://gorest.co.in/public/v2/posts/${PostDetails.id}/comments`,
-      newPost,
-      {
-        headers: {
-          Authorization:
-            "Bearer 6b204f150fab8a67c4999209fc8a26bd41c529119ba85157f6884f2a52870926",
-        },
-      }
-    )
-  );
+export const InputComment = ({
+  postDetails: postDetails,
+}: InputCommentPropsType) => {
+  const [comment, setComment] = useState<string>("");
+  const mutation = useSetComments(postDetails);
 
   const handlePostClik = () => {
     if (!comment) {
       return;
     }
     mutation.mutate({
-      id: PostDetails.id,
-      post_id: CurrentUser.id,
+      id: CurrentUser.id,
+      post_id: postDetails.id,
       name: CurrentUser.name,
       email: CurrentUser.email,
       body: comment,
     });
-    setcomment("");
+    setComment("");
   };
-  console.log({
-    id: PostDetails.id,
-    post_id: CurrentUser.id,
-    name: CurrentUser.name,
-    email: CurrentUser.email,
-    body: comment,
-  });
-  useEffect(() => {
-    if (mutation.isLoading) {
-      console.log("Submitting...");
-    }
-
-    if (mutation.isError) {
-      console.log("error occured");
-    }
-
-    if (mutation.isSuccess) {
-      console.log("successfuly posted");
-    }
-  }, [mutation.isLoading, mutation.isError, mutation.isSuccess]);
   return (
     <div className="mx-[10px] mb-[10px] flex border-t-2">
       <input
@@ -61,7 +31,7 @@ export const InputComment = ({ PostDetails }: InputCommentPropsType) => {
         className="w-[100%] h-[30px] bg-transparent active: active:border-none outline-none"
         placeholder="Add Comment...."
         value={comment}
-        onChange={(e) => setcomment(e.target.value)}
+        onChange={(e) => setComment(e.target.value)}
       />
       <button className="font-bold" onClick={handlePostClik}>
         Post

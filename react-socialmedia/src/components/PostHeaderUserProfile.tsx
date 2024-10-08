@@ -6,14 +6,8 @@ type PostHeaderUserProfilePropsType = {
 export default function PostHeaderUserProfile({
   currentPostUser,
 }: PostHeaderUserProfilePropsType) {
-  const { data: Users, isError, isLoading } = useGetUsers();
-  if (isError) {
-    <span>Error while Fetching Data</span>;
-  }
-  if (isLoading) {
-    <span>Loading User Image...</span>;
-  }
-  const user: UserDetailsType | undefined = Users?.find(
+  const { data: users } = useGetUsers();
+  const user: UserDetailsType | undefined = users?.find(
     (user: UserDetailsType) => user.id === currentPostUser
   );
 

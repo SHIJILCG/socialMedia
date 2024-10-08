@@ -1,34 +1,16 @@
-import { useGetComments } from "../api/comments/useGetComments";
+import { useGetPostComments } from "../api/comments/useGetComments";
 import { CommentsDetailsType } from "../Type/type";
 type CommentSectionPropsType = {
   postId: number;
 };
 export const CommentSection = ({ postId }: CommentSectionPropsType) => {
-  const { data: Comments, isError, isLoading } = useGetComments();
-  const comments: CommentsDetailsType[] = [];
-  if (isLoading) {
-    return (
-      <div className=" bg-[#dadada] absolute bottom-0 w-[100%] left-0 rounded-t-xl">
-        <span>Data is Loading</span>
-      </div>
-    );
-  }
-  if (isError) {
-    return (
-      <div className=" bg-[#dadada] absolute bottom-0 w-[100%] left-0 rounded-t-xl">
-        <span>Error while fetching</span>
-      </div>
-    );
-  }
-  Comments.forEach((comment: CommentsDetailsType) => {
-    if (comment.post_id === postId) comments.push(comment);
-  });
-  if (comments.length === 0) {
+  const { data: comments } = useGetPostComments(postId);
+  if (!comments || comments.length === 0) {
     return <span>No comments</span>;
   }
   return (
     <>
-      {comments.map((comment) => (
+      {comments.map((comment: CommentsDetailsType) => (
         <div
           key={comment.id}
           className="flex-col justify-between w-[100%] gap-[20-px] shadow-md bg-[#0001] p-[5px]"
