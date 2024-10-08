@@ -14,7 +14,7 @@ export default function PostHeaderUserProfile({
   if (!user) {
     return (
       <div className="flex gap-[10px]">
-        <div className="w-[48px] h-[48px] rounded-[50%] border-2 border-black"></div>
+        <div className="w-[48px] h-[48px] rounded-[50%] border-2 border-black userImg"></div>
         <div className="flex flex-col text-start">
           <span>no user name found</span>
           <span>no email id found</span>
@@ -23,11 +23,11 @@ export default function PostHeaderUserProfile({
     );
   }
   return (
-    <div className="flex">
+    <div className="flex w-[100%] flex-wrap">
       <img
         src="https://static.vecteezy.com/system/resources/previews/019/879/186/non_2x/user-icon-on-transparent-background-free-png.png"
         alt=""
-        className="w-[74px]"
+        className="w-[74px] userImg"
       />
       <div className="flex flex-col text-start">
         <span className="font-bold">{user.name}</span>

@@ -3,13 +3,13 @@ import { useMutation, useQueryClient } from "react-query";
 import { UserDetailsType } from "../../Type/type";
 import { QUERY_KEYS } from "../queryKeys";
 
-export const useSetUser = (NewUser: UserDetailsType) => {
+export const useSetUser = () => {
   const queryClient = useQueryClient();
   return useMutation(
-    (NewPost: UserDetailsType) =>
+    (newUser: UserDetailsType) =>
       axios.post(
-        `https://gorest.co.in/public/v2/users/${NewPost.id}`,
-        NewPost,
+        `https://gorest.co.in/public/v2/users`,
+        newUser,
         {
           headers: {
             Authorization:
@@ -22,8 +22,8 @@ export const useSetUser = (NewUser: UserDetailsType) => {
         console.log("Error occured", error);
       },
       onSuccess: () => {
-        console.log("New Post successfuly posted");
-        queryClient.invalidateQueries([QUERY_KEYS.GET_A_USER, NewUser.id]);
+        console.log("New User successfuly posted");
+        queryClient.invalidateQueries(QUERY_KEYS.GET_ALL_USERS);
       },
     }
   );

@@ -9,3 +9,10 @@
   font-family: 'poppins' sans-serif;
   scrollbar-width: none;
 }
+
+
+@media (max-width:800px) {
+   .cardimg,.userImg{
+     display: none;
+   }
+}

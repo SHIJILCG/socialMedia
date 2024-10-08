@@ -27,8 +27,9 @@ export type CommentsDetailsType = {
   body: string;
 };
 export type ContextType = {
-  setisNewPost: React.Dispatch<React.SetStateAction<boolean>>;
-  users: UserDetailsType[];
-  currentUser: UserDetailsType;
-  setcurrentUser: React.Dispatch<React.SetStateAction<UserDetailsType>>;
+  setshowNewPostContainer: React.Dispatch<React.SetStateAction<boolean>>;
+  setshowNewUserContainer: React.Dispatch<React.SetStateAction<boolean>>;
 };
+
+export type gender ="male" | "female";
+export type stat = "active" | "inactive"
