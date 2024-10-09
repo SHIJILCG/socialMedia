@@ -11,12 +11,17 @@ export const InputComment = ({
   const [comment, setComment] = useState<string>("");
   const mutation = useSetComments(postDetails);
 
-  const handlePostClik = () => {
+  const handlePostClik = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     if (!comment) {
       return;
     }
+    const date = new Date();
+
+    const commentId =
+      (date.getSeconds() + date.getHours() + date.getMonth()) * 100;
     mutation.mutate({
-      id: CurrentUser.id,
+      id: commentId,
       post_id: postDetails.id,
       name: CurrentUser.name,
       email: CurrentUser.email,
@@ -25,7 +30,10 @@ export const InputComment = ({
     setComment("");
   };
   return (
-    <div className="mx-[10px] mb-[10px] flex border-t-2">
+    <form
+      onSubmit={(e) => handlePostClik(e)}
+      className="mx-[10px] mb-[10px] flex border-t-2"
+    >
       <input
         type="text"
         className="w-[100%] h-[30px] bg-transparent active: active:border-none outline-none"
@@ -33,9 +41,7 @@ export const InputComment = ({
         value={comment}
         onChange={(e) => setComment(e.target.value)}
       />
-      <button className="font-bold" onClick={handlePostClik}>
-        Post
-      </button>
-    </div>
+      <input type="submit" value="Post" className="font-bold" />
+    </form>
   );
 };

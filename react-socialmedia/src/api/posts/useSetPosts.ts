@@ -1,15 +1,16 @@
 import { useMutation, useQueryClient } from "react-query";
-import { PostDetailsType, UserDetailsType } from "../../Type/type";
+import { PostDetailsType} from "../../Type/type";
 import axios from "axios";
 import { QUERY_KEYS } from "../queryKeys";
 
-export const useSetPosts = (currentUser: UserDetailsType) => {
+export const useSetPosts = () => {
   const queryClient = useQueryClient();
   return useMutation(
-    (NewPost: PostDetailsType) =>
+    [QUERY_KEYS.GET_ALL_POSTS],
+    (newPost: PostDetailsType) =>
       axios.post(
-        `https://gorest.co.in/public/v2/users/${currentUser.id}/posts`,
-        NewPost,
+        `https://gorest.co.in/public/v2/users/${newPost.user_id}/posts`,
+        newPost,
         {
           headers: {
             Authorization:
@@ -23,10 +24,7 @@ export const useSetPosts = (currentUser: UserDetailsType) => {
       },
       onSuccess: () => {
         console.log("New Post successfuly posted");
-        queryClient.invalidateQueries([
-          QUERY_KEYS.GET_ALL_USER_POSTS,
-          currentUser.id,
-        ]);
+        queryClient.invalidateQueries([QUERY_KEYS.GET_ALL_POSTS]);
       },
     }
   );

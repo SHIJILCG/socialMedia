@@ -6,17 +6,14 @@ import { QUERY_KEYS } from "../queryKeys";
 export const useSetUser = () => {
   const queryClient = useQueryClient();
   return useMutation(
+    [QUERY_KEYS.GET_ALL_USERS],
     (newUser: UserDetailsType) =>
-      axios.post(
-        `https://gorest.co.in/public/v2/users`,
-        newUser,
-        {
-          headers: {
-            Authorization:
-              "Bearer 6b204f150fab8a67c4999209fc8a26bd41c529119ba85157f6884f2a52870926",
-          },
-        }
-      ),
+      axios.post(`https://gorest.co.in/public/v2/users`, newUser, {
+        headers: {
+          Authorization:
+            "Bearer 6b204f150fab8a67c4999209fc8a26bd41c529119ba85157f6884f2a52870926",
+        },
+      }),
     {
       onError(error) {
         console.log("Error occured", error);

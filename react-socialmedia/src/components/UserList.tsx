@@ -5,9 +5,14 @@ import { SetContext } from "../pages/UserPostPage";
 import useDeleteUser from "../api/users/useDeleteUser";
 
 export const UserList = () => {
+  console.log("userList components is rendering");
   const setcontext = useContext(SetContext);
   const mutation = useDeleteUser();
-  const { data: users } = useGetUsers();
+  const { data: users, isLoading } = useGetUsers();
+
+  if (isLoading) {
+    return <div>Data is Fetching</div>;
+  }
   if (!users || users.length === 0) {
     return <div>No User Found</div>;
   }

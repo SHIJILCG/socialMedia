@@ -10,11 +10,12 @@ export const AddNewUser = () => {
   const [Status, setStatus] = useState<"active" | "inactive">("active");
   const mutation = useSetUser();
   const setcontext = useContext(SetContext);
+
   const HandleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     const date = new Date();
     const UserId =
       (date.getSeconds() + date.getHours() + date.getMinutes()) * 100;
-    console.log(UserId);
+
     e.preventDefault();
     mutation.mutate({
       id: UserId,
@@ -28,8 +29,9 @@ export const AddNewUser = () => {
     setGender("male");
     setStatus("active");
   };
+  
   return (
-    <div className="absolute bg-[#cacaca] p-[10px] top-[680px] left-[60px] items-center">
+    <div className="absolute bg-[#cacaca] p-[10px] top-[680px] left-[60px] items-center z-10">
       <div className="w-[100%] text-right px-[5px]">
         <button
           className="text-[30px] rotate-45"

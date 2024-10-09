@@ -5,6 +5,7 @@ import { QUERY_KEYS } from "../queryKeys";
 export default function useDeleteUser() {
   const queryClient = useQueryClient();
   return useMutation(
+    [QUERY_KEYS.GET_ALL_USERS],
     (UserId: number) =>
       axios.delete(`https://gorest.co.in/public/v2/users/${UserId}`, {
         headers: {
@@ -20,6 +21,7 @@ export default function useDeleteUser() {
         console.log("User is deleted");
         queryClient.invalidateQueries(QUERY_KEYS.GET_ALL_USERS);
       },
+  
     }
   );
 }

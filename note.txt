@@ -11,3 +11,12 @@ id,user_id,title,body,
 commments
 --------------------------------
 id,post_id,name,email,body
+
+
+
+formic 
+
+
+
+
+>there is call for every post rendering because the post header is showing using the id pased by the post with each use id form the List of Users

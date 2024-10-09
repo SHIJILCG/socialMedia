@@ -5,11 +5,13 @@ import { QUERY_KEYS } from "../queryKeys";
 
 export const useSetComments = (PostDetails: PostDetailsType) => {
   const queryClient = useQueryClient();
+
   return useMutation(
-    (NewPost: CommentsDetailsType) =>
+    [QUERY_KEYS.GET_ALL_POST_COMMENTS,PostDetails.id],
+    (newComment: CommentsDetailsType) =>
       axios.post(
         `https://gorest.co.in/public/v2/posts/${PostDetails.id}/comments`,
-        NewPost,
+        newComment,
         {
           headers: {
             Authorization:
@@ -24,8 +26,7 @@ export const useSetComments = (PostDetails: PostDetailsType) => {
       onSuccess: () => {
         console.log("Comment successfuly posted");
         queryClient.invalidateQueries([
-          QUERY_KEYS.GET_ALL_POSTS,
-          PostDetails.id,
+          QUERY_KEYS.GET_ALL_POSTS,PostDetails.id
         ]);
       },
     }

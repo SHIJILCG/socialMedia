@@ -4,17 +4,22 @@ type CommentSectionPropsType = {
   postId: number;
 };
 export const CommentSection = ({ postId }: CommentSectionPropsType) => {
-  const { data: comments } = useGetPostComments(postId);
+  const { data: comments, isLoading } = useGetPostComments(postId);
+  if (isLoading) {
+    return <span>Data is Fetching</span>;
+  }
   if (!comments || comments.length === 0) {
     return <span>No comments</span>;
   }
+
   return (
     <>
       {comments.map((comment: CommentsDetailsType) => (
         <div
           key={comment.id}
-          className="flex-col justify-between w-[100%] gap-[20-px] shadow-md bg-[#0001] p-[5px]"
+          className="flex-col justify-between w-[100%] gap-[20-px] shadow-md bg-[#0001] p-[5px] relative"
         >
+          <button className="absolute right-[10px] text-[20px]">☒</button>
           <div key={comment.id} className="p-[10px]">
             {comment.body}
           </div>

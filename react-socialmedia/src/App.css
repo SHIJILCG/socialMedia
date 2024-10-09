@@ -11,8 +11,8 @@
 }
 
 
-@media (max-width:800px) {
-   .cardimg,.userImg{
-     display: none;
+@media (max-width:1125px) {
+   .userdetails{
+     flex-direction: column;
    }
 }

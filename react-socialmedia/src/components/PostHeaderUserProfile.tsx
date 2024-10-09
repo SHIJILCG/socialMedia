@@ -14,10 +14,13 @@ export default function PostHeaderUserProfile({
   if (!user) {
     return (
       <div className="flex gap-[10px]">
-        <div className="w-[48px] h-[48px] rounded-[50%] border-2 border-black userImg"></div>
+        <img
+          className="w-[78px] h-[48px] rounded-[50%]  userImg"
+          src="https://static.vecteezy.com/system/resources/previews/019/879/186/non_2x/user-icon-on-transparent-background-free-png.png"
+        />
         <div className="flex flex-col text-start">
-          <span>no user name found</span>
-          <span>no email id found</span>
+          <span>No Name</span>
+          <span>No Email</span>
         </div>
       </div>
     );

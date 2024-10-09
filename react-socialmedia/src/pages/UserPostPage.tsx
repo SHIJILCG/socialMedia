@@ -11,6 +11,7 @@ import { AddNewUser } from "../components/AddNewUser";
 export const SetContext = createContext<ContextType>({} as ContextType);
 
 export const UserPostPage = () => {
+  console.log("userHome page")
   const { data: Posts } = useGetPosts();
   const [showNewPostContainer, setshowNewPostContainer] = useState(false);
   const [showNewUserContainer, setshowNewUserContainer] = useState(false);
@@ -19,12 +20,13 @@ export const UserPostPage = () => {
     return <div>No Data Found</div>;
   }
   return (
-    <SetContext.Provider value={{ setshowNewPostContainer,setshowNewUserContainer }}>
+    <SetContext.Provider
+      value={{ setshowNewPostContainer, setshowNewUserContainer }}
+    >
       <div
         className={`relative overflow-scroll ${
           showNewPostContainer ? "blur-2xl" : ""
         } `}
-  
       >
         <ShowUsersButton setShowUsers={setShowUsers} />
         {showUsers && <UserList />}

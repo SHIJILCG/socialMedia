@@ -6,17 +6,23 @@ type AddNewPostProsType = {
   currentUser: UserDetailsType;
 };
 export const AddNewPost = ({ currentUser }: AddNewPostProsType) => {
+  
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
-  const mutation = useSetPosts(currentUser);
+  const mutation = useSetPosts();
+
   const handleShareClick = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const date = new Date();
+    const PostId =(date.getSeconds() + date.getHours() + date.getMonth()) * 100;
+
     mutation.mutate({
-      id: 99999,
+      id: PostId,
       user_id: currentUser.id,
       title: title,
       body: body,
     });
+
     setTitle("");
     setBody("");
   };
@@ -34,6 +40,7 @@ export const AddNewPost = ({ currentUser }: AddNewPostProsType) => {
             <input
               type="text"
               value={title}
+              required
               placeholder="Write a title...."
               className="w-[100%] focus:outline-none focus:border-none text-[20px]  bg-transparent"
               onChange={(e) => setTitle(e.target.value)}
@@ -43,9 +50,8 @@ export const AddNewPost = ({ currentUser }: AddNewPostProsType) => {
             <span className="text-[20px]">Body:</span>
             <textarea
               value={body}
-              name=""
+              required
               placeholder="Write a body...."
-              id=""
               className="w-[100%] focus:outline-none focus:border-none text-[20px]  bg-transparent"
               onChange={(e) => setBody(e.target.value)}
             ></textarea>

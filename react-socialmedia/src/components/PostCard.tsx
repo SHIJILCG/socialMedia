@@ -31,7 +31,7 @@ export default function PostCard({ post }: PostCardPoropsType) {
           </div>
         </div>
         {showComments && (
-          <div className=" bg-[#dadada] absolute bottom-0 w-[100%] left-0 rounded-t-xl text-start overflow-scroll">
+          <div className=" bg-[#dadada] max-h-[50%]  absolute bottom-0 w-[100%] left-0 rounded-t-xl text-start overflow-scroll">
             <BackButton setShowComments={setShowComments} />
             <div className="w-[100%] h-[100%] p-[10px] flex flex-col items-center gap-[10px]">
               <CommentSection postId={post.id} />
