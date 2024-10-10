@@ -10,6 +10,15 @@
   scrollbar-width: none;
 }
 
+.MakeBlur{
+  pointer-events: none;
+}
+.active{
+  background-color: green;
+}
+.inactive{
+  background-color: red;
+}
 
 @media (max-width:1125px) {
    .userdetails{

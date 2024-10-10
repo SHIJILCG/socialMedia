@@ -1,5 +1,5 @@
 import { useGetPostComments } from "../api/comments/useGetComments";
-import { CommentsDetailsType } from "../Type/type";
+import { CommentsDetailsType} from "../Type/type";
 type CommentSectionPropsType = {
   postId: number;
 };
@@ -11,15 +11,14 @@ export const CommentSection = ({ postId }: CommentSectionPropsType) => {
   if (!comments || comments.length === 0) {
     return <span>No comments</span>;
   }
-
+  console.log("rendring")
   return (
-    <>
+    <div className="w-[100%] gap-3 flex flex-col overflow-scroll max-h-[380px]">
       {comments.map((comment: CommentsDetailsType) => (
         <div
           key={comment.id}
-          className="flex-col justify-between w-[100%] gap-[20-px] shadow-md bg-[#0001] p-[5px] relative"
+          className="flex-col justify-between text-start w-[100%] gap-[20-px] border-2 border-[#06182011] shadow-md bg-[#06182011] p-[5px] relative"
         >
-          <button className="absolute right-[10px] text-[20px]">☒</button>
           <div key={comment.id} className="p-[10px]">
             {comment.body}
           </div>
@@ -35,6 +34,6 @@ export const CommentSection = ({ postId }: CommentSectionPropsType) => {
           </div>
         </div>
       ))}
-    </>
+    </div>
   );
 };

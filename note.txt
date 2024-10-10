@@ -20,3 +20,8 @@ formic
 
 
 >there is call for every post rendering because the post header is showing using the id pased by the post with each use id form the List of Users
+
+
+
+>delelte button is not working at the time
+>posting comment not working at the time

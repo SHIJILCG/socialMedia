@@ -1,33 +1,21 @@
 import { useMutation, useQueryClient } from "react-query";
-import { CommentsDetailsType, PostDetailsType } from "../../Type/type";
-import axios from "axios";
+import { CommentsDetailsType} from "../../Type/type";
 import { QUERY_KEYS } from "../queryKeys";
+import { axiosInstance } from "../axiosInstance";
 
-export const useSetComments = (PostDetails: PostDetailsType) => {
+export const useSetComments = (PostDetails: number) => {
   const queryClient = useQueryClient();
 
   return useMutation(
-    [QUERY_KEYS.GET_ALL_POST_COMMENTS,PostDetails.id],
     (newComment: CommentsDetailsType) =>
-      axios.post(
-        `https://gorest.co.in/public/v2/posts/${PostDetails.id}/comments`,
-        newComment,
-        {
-          headers: {
-            Authorization:
-              "Bearer 6b204f150fab8a67c4999209fc8a26bd41c529119ba85157f6884f2a52870926",
-          },
-        }
-      ),
+      axiosInstance.post(`/posts/${PostDetails}/comments`, newComment),
     {
       onError(error) {
         console.log("Error occured", error);
       },
       onSuccess: () => {
         console.log("Comment successfuly posted");
-        queryClient.invalidateQueries([
-          QUERY_KEYS.GET_ALL_POSTS,PostDetails.id
-        ]);
+        queryClient.invalidateQueries([QUERY_KEYS.GET_ALL_POSTS, PostDetails]);
       },
     }
   );

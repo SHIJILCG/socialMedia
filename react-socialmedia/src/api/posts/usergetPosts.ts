@@ -1,20 +1,13 @@
 import { useQuery } from "react-query";
 import { QUERY_KEYS } from "../queryKeys";
 import axios from "axios";
+import { axiosInstance } from "../axiosInstance";
 
 export const useGetPosts = () => {
   return useQuery(
     [QUERY_KEYS.GET_ALL_POSTS],
     async () => {
-      const response = await axios.get(
-        "https://gorest.co.in/public/v2/posts",
-        {
-          headers: {
-            Authorization:
-              "Bearer 6b204f150fab8a67c4999209fc8a26bd41c529119ba85157f6884f2a52870926",
-          },
-        }
-      );
+      const response = await axiosInstance.get("/posts");
       return response.data;
     },
     {

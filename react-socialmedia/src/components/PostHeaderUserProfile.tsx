@@ -1,17 +1,12 @@
-import { useGetUsers } from "../api/users/useGetUsers";
-import { UserDetailsType } from "../Type/type";
+import { useGetSingleUsers } from "../api/users/UserGetSingleUser";
 type PostHeaderUserProfilePropsType = {
   currentPostUser: number;
 };
 export default function PostHeaderUserProfile({
   currentPostUser,
 }: PostHeaderUserProfilePropsType) {
-  const { data: users } = useGetUsers();
-  const user: UserDetailsType | undefined = users?.find(
-    (user: UserDetailsType) => user.id === currentPostUser
-  );
-
-  if (!user) {
+  const {data:user,isError} = useGetSingleUsers(currentPostUser)
+  if (!user || isError) {
     return (
       <div className="flex gap-[10px]">
         <img
@@ -32,7 +27,7 @@ export default function PostHeaderUserProfile({
         alt=""
         className="w-[74px] userImg"
       />
-      <div className="flex flex-col text-start">
+      <div className="flex flex-col text-start break-all">
         <span className="font-bold">{user.name}</span>
         <span className="font-normal text-[#5c5c5c]">{user.email}</span>
       </div>

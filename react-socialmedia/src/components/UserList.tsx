@@ -1,12 +1,10 @@
-import { useContext } from "react";
 import { useGetUsers } from "../api/users/useGetUsers";
 import { UserDetailsType } from "../Type/type";
-import { SetContext } from "../pages/UserPostPage";
+import React from "react";
 import useDeleteUser from "../api/users/useDeleteUser";
 
 export const UserList = () => {
   console.log("userList components is rendering");
-  const setcontext = useContext(SetContext);
   const mutation = useDeleteUser();
   const { data: users, isLoading } = useGetUsers();
 
@@ -57,7 +55,7 @@ export const UserList = () => {
       ))}
       <div
         className="font-bold"
-        onClick={() => setcontext.setshowNewUserContainer((Prev) => !Prev)}
+        // onClick={() => setcontext.setshowNewUserContainer((Prev) => !Prev)}
       >
         Add User...
       </div>

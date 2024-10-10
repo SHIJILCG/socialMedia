@@ -1,44 +1,48 @@
-import { useState } from "react";
 import { PostDetailsType } from "../Type/type";
+import { DeleteButtonCommon } from "./DeleteButtonCommon";
 import PostHeaderUserProfile from "./PostHeaderUserProfile";
-import { CommentSection } from "./CommentSection";
-import { BackButton } from "./BackButton";
-import { InputComment } from "./InputComment";
-import { CommentButton } from "./CommentButton";
 type PostCardPoropsType = {
   post: PostDetailsType;
+  setcommentDetails: React.Dispatch<React.SetStateAction<number>>;
+  setshowComments: React.Dispatch<React.SetStateAction<boolean>>;
+  currentUserId: number;
 };
-export default function PostCard({ post }: PostCardPoropsType) {
-  const [showComments, setShowComments] = useState(false);
+export default function PostCard({
+  post,
+  setcommentDetails,
+  setshowComments,
+  currentUserId,
+}: PostCardPoropsType) {
+  const handleCommentButtonClik = (PostId: number) => {
+    setcommentDetails(PostId);
+    setshowComments(true);
+  };
   return (
-    <div className="w-[100vw] flex flex-col items-center ">
-      <div className="card flex flex-col w-[60%]  p-[24px] border-2 shadow-2xl m-[20px] relative">
+    <div className=" flex flex-col items-center max-w-[600px] bg-white border-2 m-[20px] p-[20px] hover:scale-105 hover:bg-[#f3f3f3] relative rounded-3xl">
+      <div className="w-[100%] m-[20px] flex ">
         <PostHeaderUserProfile currentPostUser={post.user_id} />
-        <div className="flex">
-          <div className="h-[100%]">
-            <div className="p-[10px] text-[30px] font-bold text-start">
-              {post.title}
-            </div>
-            <div className="text-start p-[20px] text-inherit">{post.body}</div>
-            <CommentButton setShowComments={setShowComments} />
+        {post.user_id === currentUserId && <DeleteButtonCommon Post={post}/>}  {/* here we can delete unwanted post by removing the check */}
+      </div>
+      <div className="flex w-[100%]">
+        <div className="h-[100%] w-[100%]">
+          <div className="text-[30px] font-bold text-start break-all">
+            {post.title}
           </div>
-          <div className="cardimg">
-            <img
-              src="https://cdn.pixabay.com/photo/2019/03/22/18/26/abstract-4073887_1280.jpg"
-              alt=""
-              className="h-[100%] rounded-bl-[90px]"
-            />
+          <div className="text-start p-[20px] text-inherit flex break-all">
+            {post.body}
+          </div>
+          <div className="flex w-[100%]">
+            <button
+              className="w-[40px]"
+              onClick={() => handleCommentButtonClik(post.id)}
+            >
+              <img
+                src="https://cdn.iconscout.com/icon/free/png-512/free-comment-logo-icon-download-in-svg-png-gif-file-formats--instagram-brand-filled-line-pack-logos-icons-2724645.png?f=webp&w=256"
+                alt=""
+              />
+            </button>
           </div>
         </div>
-        {showComments && (
-          <div className=" bg-[#dadada] max-h-[50%]  absolute bottom-0 w-[100%] left-0 rounded-t-xl text-start overflow-scroll">
-            <BackButton setShowComments={setShowComments} />
-            <div className="w-[100%] h-[100%] p-[10px] flex flex-col items-center gap-[10px]">
-              <CommentSection postId={post.id} />
-            </div>
-            <InputComment postDetails={post} />
-          </div>
-        )}
       </div>
     </div>
   );

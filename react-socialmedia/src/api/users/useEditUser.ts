@@ -1,20 +1,20 @@
 import { useMutation, useQueryClient } from "react-query";
-import { UserDetailsType } from "../../Type/type";
 import { QUERY_KEYS } from "../queryKeys";
+import { UserDetailsType } from "../../Type/type";
 import { axiosInstance } from "../axiosInstance";
 
-export const useSetUser = () => {
+export default function useEditUser() {
   const queryClient = useQueryClient();
   return useMutation(
-    (newUser: UserDetailsType) => axiosInstance.post(`/users`, newUser),
+    (user: UserDetailsType) => axiosInstance.put(`/users/${user.id}`, user),
     {
       onError(error) {
         console.log("Error occured", error);
       },
       onSuccess: () => {
-        console.log("New User successfuly posted");
+        console.log("User is deleted");
         queryClient.invalidateQueries(QUERY_KEYS.GET_ALL_USERS);
       },
     }
   );
-};
+}

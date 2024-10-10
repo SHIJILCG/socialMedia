@@ -1,3 +1,5 @@
+import { Formik } from "formik";
+
 export type UserDetailsType = {
   id: number;
   name: string;
@@ -33,3 +35,10 @@ export type ContextType = {
 
 export type gender ="male" | "female";
 export type stat = "active" | "inactive"
+
+
+export type FormikNewUserType={
+   name:string
+   email:string
+   gender:string
+}
