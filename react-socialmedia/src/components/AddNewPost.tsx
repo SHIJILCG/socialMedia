@@ -32,7 +32,7 @@ export const AddNewPost = ({
     setshowNewPost(false);
   };
   return (
-    <div className="fixed top-[200px] left-[50%] translate-x-[-50%] w-[700px] h-[350px] bg-[#bbdbf0] shadow-2xl p-[20px] flex flex-col justify-between pointer-events-auto">
+    <div className="fixed top-[200px] left-[50%] translate-x-[-50%] w-[700px] h-[350px] bg-[#dbe4eb] shadow-2xl p-[20px] flex flex-col justify-between pointer-events-auto">
       <div className="flex justify-between">
         <BackButtonCommon setShowNewPost={setshowNewPost} />
         <h2 className=" font-bold text-[30px] text-[#3c8eda]">New Post</h2>
